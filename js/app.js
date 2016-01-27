@@ -2,7 +2,8 @@
 $(document).ready(function(){
 	// global variables, need to count guesses
 	var guesses,
-			secretNumber;
+			secretNumber,
+			inputError;
 
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
@@ -18,10 +19,14 @@ $(document).ready(function(){
 		// guess button, count guesses, calculate hotness
 		$('#guessButton').click(function() {
 			var userGuess = $('#userGuess').val();
-			clearGuess();
-			tallyGuesses();
-			postGuess(userGuess);
-			$('#feedback').html(bringTheHeat(userGuess));
+			if (validGuess(userGuess)) {
+				clearGuess();
+				tallyGuesses();
+				postGuess(userGuess);
+				$('#feedback').html(bringTheHeat(userGuess));
+			} else {
+				alert(inputError);
+			}
 		});
 
 		$('a.new').click(function() {
@@ -84,6 +89,11 @@ $(document).ready(function(){
 		function winner() {
 			// winner winner chicken dinner
 			console.log('Winner Winner Chicken Dinner!');
+		}
+
+		function validGuess(userGuess) {
+			var valid = true;
+			return valid;
 		}
 
 });
