@@ -1,8 +1,7 @@
 
 $(document).ready(function(){
 	// global variables, need to count guesses
-	var userGuess,
-			guesses,
+	var guesses,
 			secretNumber;
 
 	/*--- Display information modal box ---*/
@@ -18,10 +17,11 @@ $(document).ready(function(){
 
 		// guess button, count guesses, calculate hotness
 		$('#guessButton').click(function() {
-			tallyGuesses();
-			console.log($('#userGuess').val());
-			bringTheHeat($('#userGuess').val());
+			var userGuess = $('#userGuess').val();
 			clearGuess();
+			tallyGuesses();
+			// postGuess(userGuess);
+			bringTheHeat(userGuess);
 		});
 
 		$('a.new').click(function() {
@@ -37,14 +37,13 @@ $(document).ready(function(){
 
 		function startNewGame() {
 			secretNumber = pickNumAnyNum();
-			console.log(secretNumber);
+			console.log('secretnumber: ' + secretNumber);
 			guesses = 0;
 			$('#count').html(guesses);
 		}
 
 		function tallyGuesses() {
 			guesses += 1;
-			console.log(guesses);
 			$('#count').html(guesses);
 		}
 
@@ -52,8 +51,44 @@ $(document).ready(function(){
 			return parseInt(Math.random() * 100);
 		}
 
-		function bringTheHeat(heat) {
-			console.log(heat);
+		function bringTheHeat(userGuess) {
+			var heat = Math.abs(secretNumber - userGuess);
+			var response;
+			console.log('heat ' + heat);
+			if (heat === 0) {
+				winner();
+			} else if (heat < 5) {
+				response = 'On fire!';
+				console.log(response);
+			} else if (heat < 10) {
+				response = 'Smokin!';
+				console.log(response);
+			} else if (heat < 20){
+				response = 'Hot!';
+				console.log(response);
+			} else if (heat < 30) {
+				response = 'Warm!';
+				console.log(response);
+			} else if (heat < 50) {
+				response = 'Cold!';
+				console.log(response);
+			} else if (heat < 75) {
+				response = 'Ice Cold!';
+				console.log(response);
+			} else {
+				response = 'Really. That\'s your guess.';
+				console.log(response);
+			}
+		}
+
+		function postGuess(userGuess) {
+			// add li to ul
+
+		}
+
+		function winner() {
+			// winner winner chicken dinner
+			console.log('Winner Winner Chicken Dinner!');
 		}
 
 });
