@@ -44,7 +44,10 @@ $(document).ready(function(){
 			secretNumber = pickNumAnyNum();
 			console.log('secretnumber: ' + secretNumber);
 			guesses = 0;
+			clearGuessList();
 			$('#count').html(guesses);
+			$('#feedback').html('Make your Guess!');
+			$('#guessButton').show();
 		}
 
 		function tallyGuesses() {
@@ -62,7 +65,7 @@ $(document).ready(function(){
 			console.log('heat ' + heat);
 			if (heat === 0) {
 				winner();
-				response = 'Winner';
+				response = 'Winner Winner Chicken Dinner!<br>Hit \"+New Game\" for a new game!';
 			} else if (heat < 5) {
 				response = 'On fire!';
 			} else if (heat < 10) {
@@ -87,13 +90,16 @@ $(document).ready(function(){
 		}
 
 		function winner() {
-			// winner winner chicken dinner
-			console.log('Winner Winner Chicken Dinner!');
+			$('#guessButton').hide();
 		}
 
 		function validGuess(userGuess) {
 			var valid = true;
 			return valid;
+		}
+
+		function clearGuessList() {
+			$('#guessList').children('li').remove();
 		}
 
 });
