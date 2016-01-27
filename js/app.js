@@ -5,8 +5,6 @@ $(document).ready(function(){
 			guesses,
 			secretNumber;
 
-		startNewGame();
-
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -21,15 +19,25 @@ $(document).ready(function(){
 		// guess button, count guesses, calculate hotness
 		$('#guessButton').click(function() {
 			tallyGuesses();
+			console.log($('#userGuess').val());
+			bringTheHeat($('#userGuess').val());
+			clearGuess();
 		});
 
 		$('a.new').click(function() {
 			startNewGame();
 		});
 
+		startNewGame();
+
 		// functions
+		function clearGuess() {
+			$('#userGuess').val('');
+		}
+
 		function startNewGame() {
 			secretNumber = pickNumAnyNum();
+			console.log(secretNumber);
 			guesses = 0;
 			$('#count').html(guesses);
 		}
@@ -41,10 +49,11 @@ $(document).ready(function(){
 		}
 
 		function pickNumAnyNum() {
-			// return parseInt(Math.random() * 100);
-			for (x = 0; x < 101; x++) {
-				console.log(parseInt(Math.random() * 100));
-			}
+			return parseInt(Math.random() * 100);
+		}
+
+		function bringTheHeat(heat) {
+			console.log(heat);
 		}
 
 });
