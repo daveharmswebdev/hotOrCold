@@ -20,8 +20,8 @@ $(document).ready(function(){
 			var userGuess = $('#userGuess').val();
 			clearGuess();
 			tallyGuesses();
-			// postGuess(userGuess);
-			bringTheHeat(userGuess);
+			postGuess(userGuess);
+			$('#feedback').html(bringTheHeat(userGuess));
 		});
 
 		$('a.new').click(function() {
@@ -57,33 +57,28 @@ $(document).ready(function(){
 			console.log('heat ' + heat);
 			if (heat === 0) {
 				winner();
+				response = 'Winner';
 			} else if (heat < 5) {
 				response = 'On fire!';
-				console.log(response);
 			} else if (heat < 10) {
 				response = 'Smokin!';
-				console.log(response);
 			} else if (heat < 20){
 				response = 'Hot!';
-				console.log(response);
 			} else if (heat < 30) {
 				response = 'Warm!';
-				console.log(response);
 			} else if (heat < 50) {
 				response = 'Cold!';
-				console.log(response);
 			} else if (heat < 75) {
 				response = 'Ice Cold!';
-				console.log(response);
 			} else {
 				response = 'Really. That\'s your guess.';
-				console.log(response);
 			}
+			return response;
 		}
 
 		function postGuess(userGuess) {
 			// add li to ul
-
+			$('#guessList').append('<li>'+userGuess+'</li>');
 		}
 
 		function winner() {
