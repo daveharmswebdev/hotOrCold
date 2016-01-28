@@ -2,13 +2,11 @@
 $(document).ready(function(){
 	// global variables, need to count guesses
 	var guesses,
-			secretNumber,
-			inputError;
+			secretNumber;
 
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
-
   	});
 
   	/*--- Hide information modal box ---*/
@@ -17,7 +15,8 @@ $(document).ready(function(){
   	});
 
 		// guess button, count guesses, calculate hotness
-		$('#guessButton').click(function() {
+		$('#guessButton').click(function(event) {
+			event.preventDefault();
 			var userGuess = $('#userGuess').val();
 			if (validGuess(userGuess).length===0) {
 				clearGuess();
@@ -36,7 +35,7 @@ $(document).ready(function(){
 
 		// functions
 		function clearGuess() {
-			$('#userGuess').val('');
+			$('#userGuess').val('').focus();
 		}
 
 		function startNewGame() {
@@ -55,7 +54,7 @@ $(document).ready(function(){
 		}
 
 		function pickNumAnyNum() {
-			return parseInt(Math.random() * 100);
+			return (Math.floor((Math.random() * 100) + 1));
 		}
 
 		function bringTheHeat(userGuess) {
