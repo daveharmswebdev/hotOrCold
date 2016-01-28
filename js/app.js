@@ -19,21 +19,20 @@ $(document).ready(function(){
 		// guess button, count guesses, calculate hotness
 		$('#guessButton').click(function() {
 			var userGuess = $('#userGuess').val();
-			if (validGuess(userGuess)) {
+			if (validGuess(userGuess).length===0) {
 				clearGuess();
 				tallyGuesses();
 				postGuess(userGuess);
 				$('#feedback').html(bringTheHeat(userGuess));
 			} else {
-				alert(inputError);
+				alert(validGuess(userGuess));
+				clearGuess();
 			}
 		});
 
 		$('a.new').click(function() {
 			startNewGame();
 		});
-
-		startNewGame();
 
 		// functions
 		function clearGuess() {
@@ -94,12 +93,31 @@ $(document).ready(function(){
 		}
 
 		function validGuess(userGuess) {
-			var valid = true;
-			return valid;
+			// check inputbox has something in it.
+			// check that it is a number
+			// check that it is an integer
+			// check that is is within range 0 to 100
+			var errorMessage = '';
+
+			if (userGuess.length===0) {
+				errorMessage = errorMessage + 'You did not enter a guess.';
+			} else if (userGuess.isNaN) {
+			  errorMessage = 'You did not enter a number.';
+			} else if (userGuess%1 !== 0) {
+				if (errorMessage.length>0) {errorMessage = errorMessage + '<br>';}
+			  errorMessage = 'You did not enter an integer.';
+			} else if (userGuess < 0 || userGuess > 100) {
+				errorMessage = 'Guess out range. Pick a number 1 to 100.';
+			}
+
+			return errorMessage;
+
 		}
 
 		function clearGuessList() {
 			$('#guessList').children('li').remove();
 		}
+
+		startNewGame();
 
 });
